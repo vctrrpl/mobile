@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 50, // Adjust for status bar
+    paddingTop: 10, // Adjust for status bar
     paddingBottom: 15,
     backgroundColor: '#fff',
     borderBottomWidth: 1,

@@ -6,9 +6,9 @@ import {
   Alert,
   Linking,
   Image,
+  StyleSheet,
 } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
-import { customFooterStyles } from '../assets/styles/customfooter.styles';
 
 const WhatsAppIcon = ({ size = 60 }) => (
   <Svg
@@ -40,7 +40,7 @@ const WhatsAppIcon = ({ size = 60 }) => (
 
 export default function Footer() {
   const handleWhatsAppPress = () => {
-    const phoneNumber = '+1234567890'; // Replace with your WhatsApp number
+    const phoneNumber = '+1234567890';
     const message = 'Hello! I need help with PriceCal.';
     const url = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(
       message
@@ -61,28 +61,66 @@ export default function Footer() {
   };
 
   return (
-    <View style={customFooterStyles.footerContainer}>
+    <>
       {/* Footer */}
-      <View style={customFooterStyles.footer}>
-        <View style={customFooterStyles.sponsorContainer}>
+      <View style={styles.footer}>
+        <View style={styles.footerContent}>
+          <Text style={styles.poweredByText}>Powered by</Text>
           <Image
             source={require('../assets/images/sponsor.png')}
-            style={customFooterStyles.sponsorImage}
+            style={styles.priceCalLogo}
+            resizeMode="contain"
           />
-          <Text style={customFooterStyles.poweredByText}>
-            Powered by PriceCal
-          </Text>
         </View>
       </View>
 
       {/* Floating WhatsApp Button */}
       <TouchableOpacity
-        style={customFooterStyles.whatsappButton}
+        style={styles.whatsappButton}
         onPress={handleWhatsAppPress}
         activeOpacity={0.8}
       >
-        <WhatsAppIcon size={60} />
+        <WhatsAppIcon size={50} />
       </TouchableOpacity>
-    </View>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  footer: {
+    backgroundColor: '#e8e8e8',
+    paddingVertical: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  footerContent: {
+    alignItems: 'center',
+  },
+  poweredByText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    color: '#0088CE',
+  },
+  priceCalLogo: {
+    height: 40,
+    width: 100,
+  },
+  whatsappButton: {
+    position: 'absolute',
+    bottom: 60,
+    right: 20,
+    zIndex: 1000,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+});
