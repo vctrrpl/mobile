@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,8 +10,15 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import ShopInfoCard from '../components/ShopInfo';
+import Shop from '../components/Shop';
 
 export default function Index() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = (tabIndex) => {
+    setActiveTab(tabIndex);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
@@ -30,60 +37,74 @@ export default function Index() {
         </View>
 
         {/* Shop Info Card */}
-        <ShopInfoCard />
+        <ShopInfoCard onTabChange={handleTabChange} />
 
-        {/* Business Card Section */}
-        <View style={styles.sectionContainer}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Business Card</Text>
-            <Text style={styles.sectionDate}>Updated 02/09/2024</Text>
+        {/* Conditional Content Based on Active Tab */}
+        {activeTab === 0 && (
+          <>
+            {/* Business Card Section */}
+            <View style={styles.sectionContainer}>
+              <View style={styles.sectionHeader}>
+                <Text style={styles.sectionTitle}>Business Card</Text>
+                <Text style={styles.sectionDate}>Updated 02/09/2024</Text>
+              </View>
+
+              <Text style={styles.sectionDescription}>
+                Lorem ipsum dolor sit amet consectetur. Gravida euismod a
+                posuere lacinia semper. Adipiscing leo risus aliquam arcu diam
+                varius eget amet commodo. Integer nulla nulla sed gravida...
+              </Text>
+
+              {/* Business Card Images */}
+              <View style={styles.businessCardContainer}>
+                <Image
+                  source={require('../assets/images/business-card.jpg')}
+                  style={styles.businessCardImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              {/* Action Buttons */}
+              <View style={styles.actionButtonsContainer}>
+                <TouchableOpacity style={styles.actionButton}>
+                  <Ionicons name="thumbs-up-outline" size={20} color="#666" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.actionButton}>
+                  <Ionicons name="link-outline" size={20} color="#666" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.actionButton}>
+                  <Ionicons name="share-outline" size={20} color="#666" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.actionButton}>
+                  <Ionicons name="bookmark-outline" size={20} color="#666" />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Loose Sheet Section */}
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Loose Sheet</Text>
+              <View style={styles.looseSheetContainer}>
+                <Image
+                  source={{
+                    uri: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400&h=200&fit=crop',
+                  }}
+                  style={styles.looseSheetImage}
+                  resizeMode="cover"
+                />
+              </View>
+            </View>
+          </>
+        )}
+
+        {activeTab === 1 && <Shop />}
+
+        {activeTab === 2 && (
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionTitle}>Search Content</Text>
+            <Text>Search functionality will go here.</Text>
           </View>
-
-          <Text style={styles.sectionDescription}>
-            Lorem ipsum dolor sit amet consectetur. Gravida euismod a posuere
-            lacinia semper. Adipiscing leo risus aliquam arcu diam varius eget
-            amet commodo. Integer nulla nulla sed gravida...
-          </Text>
-
-          {/* Business Card Images */}
-          <View style={styles.businessCardContainer}>
-            <Image
-              source={require('../assets/images/business-card.jpg')}
-              style={styles.businessCardImage}
-              resizeMode="cover"
-            />
-          </View>
-
-          {/* Action Buttons */}
-          <View style={styles.actionButtonsContainer}>
-            <TouchableOpacity style={styles.actionButton}>
-              <Ionicons name="thumbs-up-outline" size={20} color="#666" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Ionicons name="link-outline" size={20} color="#666" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Ionicons name="share-outline" size={20} color="#666" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Ionicons name="bookmark-outline" size={20} color="#666" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Loose Sheet Section */}
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Loose Sheet</Text>
-          <View style={styles.looseSheetContainer}>
-            <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400&h=200&fit=crop',
-              }}
-              style={styles.looseSheetImage}
-              resizeMode="cover"
-            />
-          </View>
-        </View>
+        )}
       </ScrollView>
     </View>
   );

@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const ShopInfoCard = () => {
+const ShopInfoCard = ({ onTabChange }) => {
   const [likePressed, setLikePressed] = useState(false);
   const [dislikePressed, setDislikePressed] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabPress = (tabIndex) => {
+    setActiveTab(tabIndex);
+    onTabChange(tabIndex); // Pass tab change to parent
+  };
 
   return (
     <View style={styles.shopInfoCard}>
@@ -86,15 +92,29 @@ const ShopInfoCard = () => {
 
       {/* Navigation Tabs */}
       <View style={styles.tabsContainer}>
-        <TouchableOpacity style={styles.tab}>
-          <Ionicons name="home" size={20} color="#545454" />
-          <View style={styles.activeTabBorder} />
+        <TouchableOpacity style={styles.tab} onPress={() => handleTabPress(0)}>
+          <Ionicons
+            name="home"
+            size={20}
+            color={activeTab === 0 ? '#545454' : '#999'}
+          />
+          {activeTab === 0 && <View style={styles.activeTabBorder} />}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Ionicons name="grid-outline" size={20} color="#999" />
+        <TouchableOpacity style={styles.tab} onPress={() => handleTabPress(1)}>
+          <Ionicons
+            name="grid-outline"
+            size={20}
+            color={activeTab === 1 ? '#545454' : '#999'}
+          />
+          {activeTab === 1 && <View style={styles.activeTabBorder} />}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Ionicons name="search-outline" size={20} color="#999" />
+        <TouchableOpacity style={styles.tab} onPress={() => handleTabPress(2)}>
+          <Ionicons
+            name="search-outline"
+            size={20}
+            color={activeTab === 2 ? '#545454' : '#999'}
+          />
+          {activeTab === 2 && <View style={styles.activeTabBorder} />}
         </TouchableOpacity>
       </View>
     </View>

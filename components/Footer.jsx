@@ -8,7 +8,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import Svg, { G, Path } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 const WhatsAppIcon = ({ size = 60 }) => (
   <Svg
@@ -91,7 +91,7 @@ export default function Footer() {
 const styles = StyleSheet.create({
   footer: {
     backgroundColor: '#e8e8e8',
-    paddingVertical: 15,
+    paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     color: '#0088CE',
   },
   priceCalLogo: {
-    height: 40,
-    width: 100,
+    height: 30,
+    width: 90,
   },
   whatsappButton: {
     position: 'absolute',
