@@ -1,16 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router, usePathname } from 'expo-router';
 import Svg, { G, Path } from 'react-native-svg';
 
 const ShopInfoCard = ({ onTabChange }) => {
   const [likePressed, setLikePressed] = useState(false);
   const [dislikePressed, setDislikePressed] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const pathname = usePathname();
 
-  const handleTabPress = (tabIndex) => {
+  // Update active tab based on current route
+  useEffect(() => {
+    let tabIndex = 0;
+
+    switch (pathname) {
+      case '/':
+        tabIndex = 0;
+        break;
+      case '/shoppage':
+        tabIndex = 1;
+        break;
+      case '/contactuspage': // Add this case for contact us page
+        tabIndex = 1; // Show shop tab as active for contact us page
+        break;
+      case '/searchpage':
+        tabIndex = 2;
+        break;
+      default:
+        tabIndex = 0;
+    }
+
     setActiveTab(tabIndex);
-    onTabChange(tabIndex); // Pass tab change to parent
+    onTabChange?.(tabIndex);
+  }, [pathname, onTabChange]);
+
+  const handleNavigation = (route, tabIndex) => {
+    // Navigate to the appropriate route
+    switch (route) {
+      case 'home':
+        router.push('/');
+        break;
+      case 'shop':
+        router.push('/shoppage');
+        break;
+      case 'search':
+        router.push('/searchpage');
+        break;
+    }
   };
 
   const HomeIcon = ({ size = 20, color = '#545454' }) => (
@@ -142,9 +179,12 @@ const ShopInfoCard = ({ onTabChange }) => {
         </View>
       </View>
 
-      {/* Navigation Tabs */}
+      {/* Navigation Buttons (formerly tabs) */}
       <View style={styles.tabsContainer}>
-        <TouchableOpacity style={styles.tab} onPress={() => handleTabPress(0)}>
+        <TouchableOpacity
+          style={styles.tab}
+          onPress={() => handleNavigation('home', 0)}
+        >
           <View style={activeTab === 0 ? styles.iconShadow : null}>
             <HomeIcon
               size={28}
@@ -153,7 +193,10 @@ const ShopInfoCard = ({ onTabChange }) => {
           </View>
           {activeTab === 0 && <View style={styles.activeTabBorder} />}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tab} onPress={() => handleTabPress(1)}>
+        <TouchableOpacity
+          style={styles.tab}
+          onPress={() => handleNavigation('shop', 1)}
+        >
           <View style={activeTab === 1 ? styles.iconShadow : null}>
             <ShopIcon
               size={28}
@@ -162,7 +205,10 @@ const ShopInfoCard = ({ onTabChange }) => {
           </View>
           {activeTab === 1 && <View style={styles.activeTabBorder} />}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tab} onPress={() => handleTabPress(2)}>
+        <TouchableOpacity
+          style={styles.tab}
+          onPress={() => handleNavigation('search', 2)}
+        >
           <View style={activeTab === 2 ? styles.iconShadow : null}>
             <SearchIcon
               size={28}

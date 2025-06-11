@@ -7,9 +7,40 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import Svg, { G, Path } from 'react-native-svg';
+import ShopInfoCard from '../components/ShopInfo';
 
-const Shop = () => {
+const SortIcon = ({ size = 10, color = '#464646' }) => (
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 401.998 401.998"
+    style={{ marginLeft: 4 }}
+  >
+    <G>
+      <Path
+        d="M73.092,164.452h255.813c4.949,0,9.233-1.807,12.848-5.424c3.613-3.616,5.427-7.898,5.427-12.847c0-4.949-1.813-9.229-5.427-12.85L213.846,5.424C210.232,1.812,205.951,0,200.999,0s-9.233,1.812-12.85,5.424L60.242,133.331c-3.617,3.617-5.424,7.901-5.424,12.85c0,4.948,1.807,9.231,5.424,12.847C63.863,162.645,68.144,164.452,73.092,164.452z"
+        fill={color}
+      />
+      <Path
+        d="M328.905,237.549H73.092c-4.952,0-9.233,1.808-12.85,5.421c-3.617,3.617-5.424,7.898-5.424,12.847c0,4.949,1.807,9.233,5.424,12.848L188.149,396.57c3.621,3.617,7.902,5.428,12.85,5.428s9.233-1.811,12.847-5.428l127.907-127.906c3.613-3.614,5.427-7.898,5.427-12.848c0-4.948-1.813-9.229-5.427-12.847C338.139,239.353,333.854,237.549,328.905,237.549z"
+        fill={color}
+      />
+    </G>
+  </Svg>
+);
+
+const FilterIcon = ({ size = 16, color = '#fff' }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24">
+    <Path
+      d="m21 18.5h-9.5506a2.49989 2.49989 0 0 0 -4.8988 0h-3.5506a.5.5 0 0 0 0 1h3.5506a2.49989 2.49989 0 0 0 4.8988 0h9.5506a.5.5 0 0 0 0-1zm-12 2a1.5 1.5 0 1 1 1.5-1.5 1.50164 1.50164 0 0 1 -1.5 1.5zm12-9h-2.5506a2.49989 2.49989 0 0 0 -4.8988 0h-10.5506a.5.5 0 0 0 0 1h10.5506a2.49989 2.49989 0 0 0 4.8988 0h2.5506a.5.5 0 0 0 0-1zm-5 2a1.5 1.5 0 1 1 1.5-1.5 1.50164 1.50164 0 0 1 -1.5 1.5zm5-9h-7.5506a2.49989 2.49989 0 0 0 -4.8988 0h-5.5506a.5.5 0 0 0 0 1h5.5506a2.49989 2.49989 0 0 0 4.8988 0h7.5506a.5.5 0 0 0 0-1zm-10 2a1.5 1.5 0 1 1 1.5-1.5 1.50164 1.50164 0 0 1 -1.5 1.5z"
+      fill={color}
+    />
+  </Svg>
+);
+
+export default function ShopPage() {
   const products = [
     {
       id: 1,
@@ -63,35 +94,6 @@ const Shop = () => {
     },
   ];
 
-  const SortIcon = ({ size = 10, color = '#464646' }) => (
-    <Svg
-      width={size}
-      height={size}
-      viewBox="0 0 401.998 401.998"
-      style={{ marginLeft: 4 }}
-    >
-      <G>
-        <Path
-          d="M73.092,164.452h255.813c4.949,0,9.233-1.807,12.848-5.424c3.613-3.616,5.427-7.898,5.427-12.847c0-4.949-1.813-9.229-5.427-12.85L213.846,5.424C210.232,1.812,205.951,0,200.999,0s-9.233,1.812-12.85,5.424L60.242,133.331c-3.617,3.617-5.424,7.901-5.424,12.85c0,4.948,1.807,9.231,5.424,12.847C63.863,162.645,68.144,164.452,73.092,164.452z"
-          fill={color}
-        />
-        <Path
-          d="M328.905,237.549H73.092c-4.952,0-9.233,1.808-12.85,5.421c-3.617,3.617-5.424,7.898-5.424,12.847c0,4.949,1.807,9.233,5.424,12.848L188.149,396.57c3.621,3.617,7.902,5.428,12.85,5.428s9.233-1.811,12.847-5.428l127.907-127.906c3.613-3.614,5.427-7.898,5.427-12.848c0-4.948-1.813-9.229-5.427-12.847C338.139,239.353,333.854,237.549,328.905,237.549z"
-          fill={color}
-        />
-      </G>
-    </Svg>
-  );
-
-  const FilterIcon = ({ size = 16, color = '#fff' }) => (
-    <Svg width={size} height={size} viewBox="0 0 24 24">
-      <Path
-        d="m21 18.5h-9.5506a2.49989 2.49989 0 0 0 -4.8988 0h-3.5506a.5.5 0 0 0 0 1h3.5506a2.49989 2.49989 0 0 0 4.8988 0h9.5506a.5.5 0 0 0 0-1zm-12 2a1.5 1.5 0 1 1 1.5-1.5 1.50164 1.50164 0 0 1 -1.5 1.5zm12-9h-2.5506a2.49989 2.49989 0 0 0 -4.8988 0h-10.5506a.5.5 0 0 0 0 1h10.5506a2.49989 2.49989 0 0 0 4.8988 0h2.5506a.5.5 0 0 0 0-1zm-5 2a1.5 1.5 0 1 1 1.5-1.5 1.50164 1.50164 0 0 1 -1.5 1.5zm5-9h-7.5506a2.49989 2.49989 0 0 0 -4.8988 0h-5.5506a.5.5 0 0 0 0 1h5.5506a2.49989 2.49989 0 0 0 4.8988 0h7.5506a.5.5 0 0 0 0-1zm-10 2a1.5 1.5 0 1 1 1.5-1.5 1.50164 1.50164 0 0 1 -1.5 1.5z"
-        fill={color}
-      />
-    </Svg>
-  );
-
   const renderProductGrid = () => {
     const rows = [];
     for (let i = 0; i < products.length; i += 3) {
@@ -122,56 +124,87 @@ const Shop = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Shop / All</Text>
-        <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.sortButton}>
-            <Text style={styles.sortText}>Sort By</Text>
-            <SortIcon size={10} color="#464646" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.filterButton}>
-            <FilterIcon size={16} color="#fff" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <StatusBar style="dark" />
 
       <ScrollView
-        style={styles.productGrid}
+        style={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        {renderProductGrid()}
-      </ScrollView>
+        {/* Hero Image */}
+        <View style={styles.heroContainer}>
+          <Image
+            source={require('../assets/images/banner.jpg')}
+            style={styles.heroImage}
+            resizeMode="cover"
+          />
+        </View>
 
-      <View style={styles.pagination}>
-        <View style={styles.paginationPill1}>
-          <Text style={styles.paginationText}>10/Page</Text>
-        </View>
-        <View style={styles.paginationControls}>
-          <TouchableOpacity style={styles.paginationButton}>
-            <View style={styles.arrowCircle}>
-              <Text style={styles.paginationArrow}>‹</Text>
+        {/* Shop Info Card */}
+        <ShopInfoCard />
+
+        {/* Shop Content */}
+        <View style={styles.shopContent}>
+          <View style={styles.header}>
+            <Text style={styles.headerTitle}>Shop / All</Text>
+            <View style={styles.headerButtons}>
+              <TouchableOpacity style={styles.sortButton}>
+                <Text style={styles.sortText}>Sort By</Text>
+                <SortIcon size={10} color="#464646" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.filterButton}>
+                <FilterIcon size={16} color="#fff" />
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-          <View style={styles.paginationPill2}>
-            <Text style={styles.pageInfo}>1 of 24</Text>
           </View>
-          <TouchableOpacity style={styles.paginationButton}>
-            <View style={styles.arrowCircle}>
-              <Text style={styles.paginationArrow}>›</Text>
+
+          <View style={styles.productGrid}>{renderProductGrid()}</View>
+
+          <View style={styles.pagination}>
+            <View style={styles.paginationPill1}>
+              <Text style={styles.paginationText}>10/Page</Text>
             </View>
-          </TouchableOpacity>
+            <View style={styles.paginationControls}>
+              <TouchableOpacity style={styles.paginationButton}>
+                <View style={styles.arrowCircle}>
+                  <Text style={styles.paginationArrow}>‹</Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.paginationPill2}>
+                <Text style={styles.pageInfo}>1 of 24</Text>
+              </View>
+              <TouchableOpacity style={styles.paginationButton}>
+                <View style={styles.arrowCircle}>
+                  <Text style={styles.paginationArrow}>›</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  heroContainer: {
+    width: '100%',
+    height: 250,
+  },
+  heroImage: {
+    width: '100%',
+    height: '100%',
+  },
+  shopContent: {
     paddingHorizontal: 16,
     paddingTop: 10,
+    paddingBottom: 20,
   },
   header: {
     flexDirection: 'row',
@@ -212,7 +245,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productGrid: {
-    flex: 1,
+    marginBottom: 20,
   },
   productRow: {
     flexDirection: 'row',
@@ -295,5 +328,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
 });
-
-export default Shop;

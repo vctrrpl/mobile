@@ -76,14 +76,12 @@ export default function Footer() {
         </View>
       </View>
 
-      {/* Floating WhatsApp Button */}
-      <TouchableOpacity
-        style={styles.whatsappButton}
-        onPress={handleWhatsAppPress}
-        activeOpacity={0.8}
-      >
-        <WhatsAppIcon size={60} />
-      </TouchableOpacity>
+      {/* Fixed Floating WhatsApp Button */}
+      <View style={styles.whatsappButton}>
+        <TouchableOpacity onPress={handleWhatsAppPress} activeOpacity={0.8}>
+          <WhatsAppIcon size={60} />
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
@@ -113,8 +111,8 @@ const styles = StyleSheet.create({
   },
   whatsappButton: {
     position: 'absolute',
-    bottom: 50,
-    right: 20,
+    bottom: 30, // Position above the footer
+    right: 20, // Position from the right edge
     zIndex: 1000,
     elevation: 5,
     shadowColor: '#000',
